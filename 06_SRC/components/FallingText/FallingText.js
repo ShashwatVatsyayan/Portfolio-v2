@@ -61,8 +61,9 @@ export class FallingText {
   buildBodies() {
     this.bodies = [];
     const words = this.text.split(/\s+/);
+    const isSmallMobile = window.innerWidth < 480;
     const isMobile = window.innerWidth < 768;
-    const fontSize = isMobile ? 18 : 24;
+    const fontSize = isSmallMobile ? 14 : isMobile ? 18 : 24;
     const font = `600 ${fontSize}px "Shippori Mincho", serif`;
 
     this.ctx.font = font;

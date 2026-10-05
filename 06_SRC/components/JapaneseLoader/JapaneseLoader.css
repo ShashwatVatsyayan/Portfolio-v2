@@ -7,7 +7,10 @@
   position: fixed;
   inset: 0;
   width: 100vw;
+  width: 100dvw;
   height: 100vh;
+  height: 100svh;
+  height: 100dvh;
   z-index: 10002;
   background: #040406;
   display: flex;
@@ -191,4 +194,17 @@
   background: linear-gradient(90deg, #8a151b, #ff2b2b);
   box-shadow: 0 0 12px #ff2b2b;
   transition: width 0.1s linear;
+}
+
+@media (max-width: 480px) {
+  .jp-loader-matrix {
+    gap: 0.45rem;
+  }
+  .jp-char-box {
+    width: 44px;
+    height: 60px;
+  }
+  .jp-char {
+    font-size: 1.7rem;
+  }
 }

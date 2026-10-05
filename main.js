@@ -136,12 +136,16 @@ function fitCanvas(canvas) {
   return canvas.getContext('2d');
 }
 
-function syncSize(canvas) {
-  if (!canvas) return false;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const w = Math.round(canvas.offsetWidth  * dpr);
-  const h = Math.round(canvas.offsetHeight * dpr);
-  return canvas.width !== w || canvas.height !== h;
+let lastWinW = window.innerWidth;
+let lastWinH = window.innerHeight;
+
+function syncSize() {
+  if (window.innerWidth !== lastWinW || window.innerHeight !== lastWinH) {
+    lastWinW = window.innerWidth;
+    lastWinH = window.innerHeight;
+    return true;
+  }
+  return false;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -607,22 +611,52 @@ function strike() {
 if (!reducedMotion) stormTimer = setTimeout(strike, 2200);
 
 const soundToggle = document.getElementById('soundToggle');
+const soundToggleMobile = document.getElementById('soundToggleMobile');
 const soundState  = document.getElementById('soundState');
-if (soundToggle) {
-  soundToggle.addEventListener('click', async () => {
-    thunderOn = !thunderOn;
-    soundToggle.setAttribute('aria-pressed', String(thunderOn));
-    if (soundState) soundState.textContent = thunderOn ? 'ON' : 'OFF';
-    if (thunderOn) {
-      const ctx = initAudio();
-      if (ctx && ctx.state === 'suspended') await ctx.resume();
-      playThunder(0.7);
+
+async function handleSoundToggle() {
+  thunderOn = !thunderOn;
+  if (soundToggle) soundToggle.setAttribute('aria-pressed', String(thunderOn));
+  if (soundToggleMobile) soundToggleMobile.setAttribute('aria-pressed', String(thunderOn));
+  if (soundState) soundState.textContent = thunderOn ? 'ON' : 'OFF';
+  if (thunderOn) {
+    const ctx = initAudio();
+    if (ctx && ctx.state === 'suspended') await ctx.resume();
+    playThunder(0.7);
+  }
+}
+
+if (soundToggle) soundToggle.addEventListener('click', handleSoundToggle);
+if (soundToggleMobile) soundToggleMobile.addEventListener('click', handleSoundToggle);
+
+/* ═════════════════════ MOBILE MENU DRAWER ═════════════════════ */
+const chromeBurger = document.getElementById('chromeBurger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (chromeBurger && mobileMenu) {
+  function toggleMobileMenu(open) {
+    const shouldOpen = open !== undefined ? open : !mobileMenu.classList.contains('is-open');
+    mobileMenu.classList.toggle('is-open', shouldOpen);
+    chromeBurger.setAttribute('aria-expanded', String(shouldOpen));
+    if (shouldOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
+  }
+
+  chromeBurger.addEventListener('click', () => toggleMobileMenu());
+
+  mobileMenu.querySelectorAll('.chrome__mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      toggleMobileMenu(false);
+    });
   });
 }
 
-/* ═════════════════════ RESIZE ═════════════════════ */
+/* ═════════════════════ RESIZE & ORIENTATION ═════════════════════ */
 function resizeAll() {
+  lastWinW = window.innerWidth;
+  lastWinH = window.innerHeight;
   mainCtx = fitCanvas(mainCanvas);
   fCtx    = fitCanvas(featherCanvas);
   amaCtx  = fitCanvas(amaCanvas);
@@ -648,12 +682,22 @@ window.addEventListener('resize', () => {
   rt = setTimeout(resizeAll, 140);
 });
 
+window.addEventListener('orientationchange', () => {
+  setTimeout(resizeAll, 200);
+});
+
 /* ═════════════════════ MAIN ANIMATION LOOP ═════════════════════ */
 function tick() {
+  // Conserve CPU/GPU while Lanyard gate is active
+  if (document.body.classList.contains('lanyard-active')) {
+    requestAnimationFrame(tick);
+    return;
+  }
+
   readScroll();
   readScrub();
 
-  if (syncSize(mainCanvas) || syncSize(featherCanvas) || syncSize(amaCanvas)) {
+  if (syncSize()) {
     resizeAll();
   }
 

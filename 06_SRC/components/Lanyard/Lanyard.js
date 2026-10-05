@@ -106,8 +106,19 @@ export class Lanyard {
     const isMobile = this.w < 768;
     const isTablet = this.w >= 768 && this.w < 1024;
 
-    this.card.width = isMobile ? Math.min(220, Math.round(this.w * 0.62)) : isTablet ? 245 : 275;
-    this.card.height = Math.round(this.card.width * 1.48);
+    // Viewport-aware card sizing: prevent overflow on mobile or short screens
+    let baseWidth = isMobile ? Math.min(210, Math.round(this.w * 0.58)) : isTablet ? 245 : 275;
+    let baseHeight = Math.round(baseWidth * 1.48);
+
+    // Height clamp: card must not exceed 45% of viewport height on short/landscape screens
+    const maxHeight = Math.min(420, Math.round(this.h * 0.45));
+    if (baseHeight > maxHeight) {
+      baseHeight = Math.max(150, maxHeight);
+      baseWidth = Math.round(baseHeight / 1.48);
+    }
+
+    this.card.width = baseWidth;
+    this.card.height = baseHeight;
 
     // Anchor at top center of viewport (50% viewport width)
     this.anchor.x = this.w * 0.5;
@@ -247,6 +258,9 @@ export class Lanyard {
     const hit = Math.abs(px - this.card.x) < hw && Math.abs(py - this.card.y) < hh;
 
     if (hit) {
+      if (e.pointerId != null && this.stageEl.setPointerCapture) {
+        try { this.stageEl.setPointerCapture(e.pointerId); } catch (_) {}
+      }
       const hook = this.getHook();
       this.isDragging = true;
       this.isPointerDownOnCard = true;
@@ -276,16 +290,22 @@ export class Lanyard {
 
       this.totalDragDist += Math.sqrt(dx * dx + dy * dy);
 
-      // Drag directly guides the terminal hook attachment
-      this.dragTargetHook.x = px + this.hookDragOffset.x;
-      this.dragTargetHook.y = py + this.hookDragOffset.y;
+      // Drag directly guides the terminal hook attachment, clamped to screen bounds
+      const minX = this.card.width * 0.5 + 16;
+      const maxX = this.w - this.card.width * 0.5 - 16;
+      const targetX = px + this.hookDragOffset.x;
+      const targetY = py + this.hookDragOffset.y;
+      this.dragTargetHook.x = Math.max(minX, Math.min(maxX, targetX));
+      this.dragTargetHook.y = Math.max(20, Math.min(this.h - 40, targetY));
 
-      // Angular rotation response (predominantly vertical Y rotation)
-      const angularSpeedY = (dx / dt) * 0.05;
+      // Angular rotation response (scaled for device)
+      const isMobile = this.w < 768;
+      const rotFactor = isMobile ? 0.03 : 0.05;
+      const angularSpeedY = (dx / dt) * rotFactor;
       this.card.vRotY += angularSpeedY;
 
       // Small secondary pitch (X rotation)
-      const angularSpeedX = (dy / dt) * 0.012;
+      const angularSpeedX = (dy / dt) * (isMobile ? 0.008 : 0.012);
       this.card.vRotX -= angularSpeedX;
 
       this.lastPointer = { x: px, y: py, time: now };
@@ -323,6 +343,9 @@ export class Lanyard {
   }
 
   onPointerUp(e) {
+    if (e && e.pointerId != null && this.stageEl.releasePointerCapture) {
+      try { this.stageEl.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
     if (!this.isDragging) return;
     this.isDragging = false;
     this.stageEl.classList.remove('is-dragging');

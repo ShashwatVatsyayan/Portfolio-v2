@@ -598,15 +598,7 @@
 /* ── Responsive Refinements ── */
 @media (max-width: 768px) {
   .cylinder-stage {
-    height: 400px;
-    perspective: 1600px;
-  }
-  
-  .cylinder-card {
-    width: 250px;
-    height: 330px;
-    margin-left: -125px;
-    margin-top: -165px;
+    height: clamp(340px, 48vh, 400px);
   }
 
   .carousel-controls {
@@ -616,22 +608,35 @@
   .carousel-btn {
     padding: 0.65rem 1.2rem;
     font-size: 0.68rem;
+    min-height: 44px;
   }
 
   .project-details-panel {
-    padding: 1.75rem;
+    padding: 1.5rem 1.2rem;
   }
 
   .details-title {
-    font-size: 1.75rem;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
   }
 
   .action-btn {
     flex: 1;
     min-width: 140px;
+    min-height: 44px;
   }
 
   .carousel-hint {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
   }
 }

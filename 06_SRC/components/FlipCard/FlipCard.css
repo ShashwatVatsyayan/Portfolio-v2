@@ -6,11 +6,12 @@
 .flip-card-wrapper {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  height: 580px;
+  max-width: min(440px, 92vw);
+  height: clamp(520px, 76vh, 580px);
   margin: 0 auto;
   perspective: 1100px;
   cursor: pointer;
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -250,11 +251,11 @@
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .flip-card-wrapper {
-    max-width: 92vw;
-    height: 590px;
+    max-width: min(440px, 92vw);
+    height: clamp(500px, 78vh, 580px);
   }
   .flip-card-face {
-    padding: 1.5rem;
+    padding: 1.5rem 1.25rem;
   }
   .flip-card-org {
     font-size: 1.3rem;

@@ -109,23 +109,28 @@ export class CircularCarousel {
   }
 
   measureLayout() {
+    const isSmallMobile = window.innerWidth < 480;
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-    this.cardWidth = isMobile ? Math.min(270, Math.max(240, window.innerWidth - 64)) : isTablet ? 300 : 340;
-    this.cardHeight = isMobile ? 370 : isTablet ? 410 : 450;
-    const gap = isMobile ? 16 : 28;
+    this.cardWidth = isSmallMobile 
+      ? Math.min(250, Math.max(210, window.innerWidth - 56)) 
+      : isMobile 
+        ? Math.min(280, Math.max(240, window.innerWidth - 64)) 
+        : isTablet ? 300 : 340;
+    this.cardHeight = isSmallMobile ? 340 : isMobile ? 370 : isTablet ? 410 : 450;
+    const gap = isSmallMobile ? 12 : isMobile ? 16 : 28;
 
     if (this.stageEl) {
       this.stageEl.style.setProperty('--card-w', `${this.cardWidth}px`);
       this.stageEl.style.setProperty('--card-h', `${this.cardHeight}px`);
-      this.stageEl.style.perspective = isMobile ? '1500px' : isTablet ? '1900px' : `${this.perspective}px`;
+      this.stageEl.style.perspective = isSmallMobile ? '1200px' : isMobile ? '1500px' : isTablet ? '1900px' : `${this.perspective}px`;
     }
 
     // Cylindrical radius R = (W + gap) / (2 * sin(pi / N))
     const angleRad = Math.PI / this.numItems;
     this.radius = Math.round((this.cardWidth + gap) / (2 * Math.sin(angleRad)));
-    if (this.radius < 280) this.radius = 280;
+    if (this.radius < 260) this.radius = 260;
   }
 
   bindEvents() {

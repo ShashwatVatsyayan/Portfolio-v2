@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>SHASHWAT VATSYAYAN — Developer · Creative Technologist · Filmmaker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +124,39 @@
       <span class="chrome__sound-state" id="soundState">OFF</span>
     </button>
   </nav>
+  <div class="chrome__actions">
+    <button class="chrome__sound chrome__sound--mobile cursor-target" id="soundToggleMobile" type="button" aria-pressed="false" title="Thunder Audio Toggle">
+      <span class="chrome__sound-jp">音</span>
+      <span class="chrome__sound-state" id="soundStateMobile">OFF</span>
+    </button>
+    <button class="chrome__burger cursor-target" id="chromeBurger" type="button" aria-label="Toggle Navigation Menu" aria-expanded="false">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+  </div>
 </header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="chrome__mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__inner">
+    <div class="mobile-menu__header">
+      <span class="mobile-menu__eyebrow">NAVIGATION // 目次</span>
+      <button class="mobile-menu__close" id="mobileMenuClose" type="button" aria-label="Close Navigation Menu">✕</button>
+    </div>
+    <nav class="mobile-menu__nav">
+      <a href="#scrub" class="mobile-nav-link" data-jp="初"><span class="mobile-nav-jp">初</span><span class="mobile-nav-en">HOME</span></a>
+      <a href="#about" class="mobile-nav-link" data-jp="私"><span class="mobile-nav-jp">私</span><span class="mobile-nav-en">ABOUT</span></a>
+      <a href="#skills" class="mobile-nav-link" data-jp="術"><span class="mobile-nav-jp">術</span><span class="mobile-nav-en">SKILLS</span></a>
+      <a href="#work" class="mobile-nav-link" data-jp="作"><span class="mobile-nav-jp">作</span><span class="mobile-nav-en">WORK</span></a>
+      <a href="#experience" class="mobile-nav-link" data-jp="歴"><span class="mobile-nav-jp">歴</span><span class="mobile-nav-en">EXPERIENCE</span></a>
+      <a href="#creative" class="mobile-nav-link" data-jp="創"><span class="mobile-nav-jp">創</span><span class="mobile-nav-en">CREATIVE</span></a>
+      <a href="#contact" class="mobile-nav-link" data-jp="通"><span class="mobile-nav-jp">通</span><span class="mobile-nav-en">COLLABORATE</span></a>
+    </nav>
+    <div class="mobile-menu__footer">
+      <span class="mobile-menu__tag">SHASHWAT VATSYAYAN // 2026</span>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════ SIDE RAILS ══════════ -->
 <div class="rail rail--left" aria-hidden="true">

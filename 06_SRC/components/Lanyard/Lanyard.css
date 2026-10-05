@@ -7,7 +7,10 @@
   position: fixed;
   inset: 0;
   width: 100vw;
+  width: 100dvw;
   height: 100vh;
+  height: 100svh;
+  height: 100dvh;
   z-index: 10000;
   background: #040406;
   overflow: hidden;
@@ -86,7 +89,7 @@
 
 /* Top Subtle Eyebrow */
 .lanyard-topbar {
-  padding-top: clamp(1.8rem, 4vh, 2.8rem);
+  padding-top: calc(var(--sat, 0px) + clamp(1.2rem, 3.5vh, 2.5rem));
   text-align: center;
   pointer-events: none;
 }
@@ -105,7 +108,7 @@
 
 /* Bottom Instruction & Identity Callout */
 .lanyard-bottombar {
-  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+  padding-bottom: calc(var(--sab, 0px) + clamp(1.6rem, 4vh, 3.2rem));
   display: flex;
   flex-direction: column;
   align-items: center;

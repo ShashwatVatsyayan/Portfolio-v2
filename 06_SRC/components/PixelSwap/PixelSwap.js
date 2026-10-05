@@ -47,15 +47,26 @@ export class PixelSwap {
 
   bindEvents() {
     if (this.trigger === 'hover') {
-      this.container.addEventListener('pointerenter', () => {
+      this.container.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'touch') return;
         if (!this.isSwapped) this.swap(true);
       });
 
-      this.container.addEventListener('pointerleave', () => {
+      this.container.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'touch') return;
         if (this.isSwapped) this.swap(false);
       });
+
+      // On touch devices, allow tapping the pill to toggle without flipping the parent card
+      this.container.addEventListener('click', (e) => {
+        if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) {
+          e.stopPropagation();
+          this.swap(!this.isSwapped);
+        }
+      });
     } else {
-      this.container.addEventListener('click', () => {
+      this.container.addEventListener('click', (e) => {
+        e.stopPropagation();
         this.swap(!this.isSwapped);
       });
     }
