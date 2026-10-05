@@ -9,6 +9,9 @@
   font-family: var(--mono, 'Space Grotesk', monospace);
   letter-spacing: 0.28em;
   text-transform: uppercase;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .decrypted-char {

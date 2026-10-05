@@ -27,15 +27,23 @@
   --sar:env(safe-area-inset-right, 0px);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;padding:0;box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+html,
+body,
+#root{
+  width:100%;
+  min-height:100%;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
 html{
   scroll-behavior:smooth;
-  width:100%;
-  min-height:100%;
 }
 body{
-  width:100%;
-  min-height:100%;
   background:var(--ink);
   color:var(--bone);
   font-family:var(--gothic);
@@ -44,9 +52,40 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 #root{
-  width:100%;
-  min-height:100%;
   overflow-x:hidden;
+}
+
+/* Preserve text selection for editable fields and code blocks */
+input,
+textarea,
+pre,
+code,
+[contenteditable="true"]{
+  -webkit-user-select:text;
+  user-select:text;
+}
+
+/* Explicit decorative non-selectable UI */
+h1, h2, h3, h4, h5, h6,
+.eyebrow,
+.phase,
+.titleblock,
+.hint,
+.sticky-badge,
+.chrome,
+.chrome__mark,
+.chrome__nav,
+.chrome__mobile-menu,
+.exp-org-title,
+.exp-card__num,
+.timeline__badge,
+.skill-card__num,
+.project-card__num,
+.project-card__badge,
+.btn{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
 }
 ::selection{background:var(--blood);color:#fff}
 

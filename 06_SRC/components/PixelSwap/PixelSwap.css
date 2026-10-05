@@ -11,6 +11,9 @@
   background: rgba(14, 14, 18, 0.6);
   border: 1px solid rgba(232, 228, 220, 0.12);
   padding: 0.8rem 1.8rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
   transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 

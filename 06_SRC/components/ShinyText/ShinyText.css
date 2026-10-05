@@ -34,7 +34,9 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shineSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  -webkit-user-select: none;
   user-select: none;
+  -webkit-touch-callout: none;
   filter: drop-shadow(0 2px 20px rgba(255, 255, 255, 0.08));
 }
 
@@ -54,6 +56,9 @@
   color: rgba(232, 228, 220, 0.55);
   text-transform: uppercase;
   margin-top: 1.8rem;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .shiny-text-subtitle span {

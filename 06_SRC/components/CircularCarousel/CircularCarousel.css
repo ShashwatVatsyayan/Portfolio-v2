@@ -100,6 +100,7 @@
   perspective-origin: 50% 50%;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
   cursor: grab;
   touch-action: pan-y;
   margin-bottom: clamp(2.5rem, 5vh, 4rem);
@@ -146,6 +147,9 @@
   pointer-events: auto;
   cursor: pointer;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
   transform-origin: 50% 50% 0;
   transition: 
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),

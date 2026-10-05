@@ -57,6 +57,9 @@
   cursor: pointer;
   overflow: hidden;
   box-shadow: inset 0 20px 60px rgba(0, 0, 0, 0.75);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .falling-text-canvas {
