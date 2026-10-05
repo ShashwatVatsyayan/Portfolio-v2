@@ -15,12 +15,19 @@ export class DecryptedText {
     this.animateOn = options.animateOn ?? 'view';
     this.revealDirection = options.revealDirection ?? 'center'; // 'center', 'left', 'right'
 
+    this.loop = options.loop ?? false;
+    this.loopHoldTime = options.loopHoldTime ?? 1400; // ms to pause while readable
+    this.isLooping = this.loop;
+    this.loopTimeout = null;
+
     this.hasAnimated = false;
     this.timer = null;
 
     this.setupDOM();
     if (this.animateOn === 'view') {
       this.initObserver();
+    } else if (this.loop) {
+      this.startLoop();
     } else {
       this.start();
     }
@@ -118,12 +125,63 @@ export class DecryptedText {
 
       if (iteration >= this.maxIterations && numToReveal >= totalChars) {
         clearInterval(this.timer);
+        this.timer = null;
         this.charSpans.forEach(item => {
           item.el.textContent = item.isSpace ? '\u00A0' : item.targetChar;
           item.el.className = 'decrypted-char revealed';
         });
+
+        // If configured to loop, hold readable for loopHoldTime, then scramble and cycle again
+        if (this.isLooping) {
+          this.loopTimeout = setTimeout(() => {
+            if (this.isLooping) {
+              this.reset();
+              this.start();
+            }
+          }, this.loopHoldTime);
+        }
       }
     }, this.speed);
+  }
+
+  reset() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+    if (this.loopTimeout) {
+      clearTimeout(this.loopTimeout);
+      this.loopTimeout = null;
+    }
+    this.charSpans.forEach(item => {
+      item.revealed = false;
+      item.el.textContent = item.isSpace ? '\u00A0' : this.getRandomChar();
+      item.el.className = 'decrypted-char encrypted';
+    });
+  }
+
+  startLoop() {
+    this.isLooping = true;
+    this.reset();
+    this.start();
+  }
+
+  stopLoop() {
+    this.isLooping = false;
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+    if (this.loopTimeout) {
+      clearTimeout(this.loopTimeout);
+      this.loopTimeout = null;
+    }
+    // Settle to clear, readable state when paused
+    this.charSpans.forEach(item => {
+      item.revealed = true;
+      item.el.textContent = item.isSpace ? '\u00A0' : item.targetChar;
+      item.el.className = 'decrypted-char revealed';
+    });
   }
 }
 

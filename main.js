@@ -11,6 +11,7 @@ import { TargetCursor } from './06_SRC/components/TargetCursor/TargetCursor.js';
 import { LogoLoop } from './06_SRC/components/LogoLoop/LogoLoop.js';
 import { techLogos } from './06_SRC/components/LogoLoop/TechLogos.js';
 import { PixelSwap } from './06_SRC/components/PixelSwap/PixelSwap.js';
+import { FlipCard } from './06_SRC/components/FlipCard/FlipCard.js';
 import { ScrollVelocity } from './06_SRC/components/ScrollVelocity/ScrollVelocity.js';
 import { ScrollReveal, initScrollReveal } from './06_SRC/components/ScrollReveal/ScrollReveal.js';
 import { DecryptedText, initDecryptedText } from './06_SRC/components/DecryptedText/DecryptedText.js';
@@ -745,7 +746,53 @@ if (logoLoopContainer) {
   });
 }
 
-/* ═════════════════════ 3. PIXEL SWAP ROLE INTERACTION ═════════════════════ */
+/* ═════════════════════ 3. EXPERIENCE FLIPCARD + LOOPING CYBER SECURITY ═════════════════════ */
+const expFlipCardEl = document.getElementById('experienceFlipCard');
+const cyberSecEl = document.getElementById('cyberSecurityDecrypted');
+let cyberSecurityDecrypted = null;
+
+if (cyberSecEl) {
+  cyberSecurityDecrypted = new DecryptedText(cyberSecEl, {
+    text: 'CYBER SECURITY',
+    speed: 55,
+    maxIterations: 18,
+    characters: 'ABCD1234!?#$&%*<>[]',
+    animateOn: 'manual',
+    revealDirection: 'center',
+    loop: false,
+    loopHoldTime: 1600
+  });
+}
+
+if (expFlipCardEl) {
+  new FlipCard(expFlipCardEl, {
+    axis: 'y',
+    flipOnClick: true,
+    draggable: true,
+    dragDistance: 0,
+    tilt: true,
+    tiltMax: 12,
+    glare: true,
+    glareOpacity: 0.22,
+    hoverScale: 1.03,
+    perspective: 1100,
+    stiffness: 170,
+    damping: 20,
+    onFlipChange: (isFlipped) => {
+      if (cyberSecurityDecrypted) {
+        if (isFlipped) {
+          // Card flipped to reveal BACK: start looping Cyber Security decryption
+          cyberSecurityDecrypted.startLoop();
+        } else {
+          // Card flipped back to FRONT: stop looping
+          cyberSecurityDecrypted.stopLoop();
+        }
+      }
+    }
+  });
+}
+
+// PixelSwap on Front Face of FlipCard
 const pixelSwapContainer = document.getElementById('pixelSwapRole');
 if (pixelSwapContainer) {
   new PixelSwap(pixelSwapContainer, {

@@ -638,10 +638,12 @@ body{
 .experience{
   background:var(--ink);
 }
-.exp-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
-  gap:2rem;
+.exp-flip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1.5rem auto 0;
 }
 .exp-card{
   background:linear-gradient(175deg, rgba(14,14,18,.85) 0%, rgba(9,9,11,.95) 100%);

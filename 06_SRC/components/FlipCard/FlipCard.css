@@ -1,0 +1,262 @@
+/* ═══════════════════════════════════════════════════════════
+   FLIPCARD COMPONENT
+   3D Spring-physics interactive dual-sided card gateway
+   ═══════════════════════════════════════════════════════════ */
+
+.flip-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 580px;
+  margin: 0 auto;
+  perspective: 1100px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 22px;
+}
+
+/* Front & Back Faces */
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  background: #0d0d14;
+  border: 1px solid rgba(232, 228, 220, 0.14);
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.8rem, 3.5vw, 2.4rem);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.flip-card-wrapper:hover .flip-card-face {
+  border-color: rgba(255, 43, 43, 0.38);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(255, 43, 43, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.flip-card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+/* Subtle Realistic Glare Overlay */
+.flip-card-glare {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 22px;
+  background: radial-gradient(circle 380px at 50% 50%, rgba(255, 255, 255, 0.15), transparent 75%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 10;
+}
+
+.flip-card-wrapper:hover .flip-card-glare {
+  opacity: 1;
+}
+
+/* Face Header */
+.flip-card-header {
+  position: relative;
+  z-index: 2;
+}
+
+.flip-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+}
+
+.flip-card-index {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--blood-hot, #ff2b2b);
+  font-weight: 700;
+}
+
+.flip-card-type-tag {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: rgba(232, 228, 220, 0.55);
+  text-transform: uppercase;
+}
+
+.flip-card-org {
+  font-family: var(--display, 'Cabinet Grotesk', sans-serif);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+
+.flip-card-inst {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: rgba(232, 228, 220, 0.65);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Interactive Center Slot */
+.flip-card-interactive-slot {
+  position: relative;
+  z-index: 3;
+  margin: 1.4rem 0;
+}
+
+/* Focus List */
+.flip-card-body {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.flip-card-focus-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.flip-card-focus-list li {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: rgba(232, 228, 220, 0.75);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.flip-card-focus-list li::before {
+  content: '▸';
+  color: var(--blood-hot, #ff2b2b);
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+/* Bottom Flip Action Pill */
+.flip-card-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(232, 228, 220, 0.08);
+}
+
+.flip-action-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+  color: rgba(232, 228, 220, 0.6);
+  text-transform: uppercase;
+}
+
+.flip-action-icon {
+  display: inline-block;
+  color: var(--blood-hot, #ff2b2b);
+  font-size: 0.85rem;
+  transition: transform 0.4s ease;
+}
+
+.flip-card-wrapper:hover .flip-action-icon {
+  transform: rotate(180deg);
+}
+
+.flip-card-tag-pill {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  color: var(--blood-hot, #ff2b2b);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background: rgba(255, 43, 43, 0.08);
+  border: 1px solid rgba(255, 43, 43, 0.22);
+  text-transform: uppercase;
+}
+
+/* Decrypted Text Custom Box on Back Card */
+.exp-decrypted-box {
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 43, 43, 0.28);
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.decrypted-label {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  color: rgba(232, 228, 220, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.decrypted-target {
+  font-family: var(--mono, 'Space Grotesk', monospace);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--blood-hot, #ff2b2b);
+  text-shadow: 0 0 16px rgba(255, 43, 43, 0.4);
+  text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .flip-card-wrapper {
+    max-width: 92vw;
+    height: 590px;
+  }
+  .flip-card-face {
+    padding: 1.5rem;
+  }
+  .flip-card-org {
+    font-size: 1.3rem;
+  }
+}

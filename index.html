@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="06_SRC/components/ShinyText/ShinyText.css" />
 <link rel="stylesheet" href="06_SRC/components/Lanyard/Lanyard.css" />
 <link rel="stylesheet" href="06_SRC/components/JapaneseLoader/JapaneseLoader.css" />
+<link rel="stylesheet" href="06_SRC/components/FlipCard/FlipCard.css" />
 <link rel="stylesheet" href="06_SRC/components/ClickSpark/ClickSpark.css" />
 <script>
   if ('scrollRestoration' in history) {
@@ -462,65 +463,91 @@
       </p>
     </div>
 
-    <div class="exp-grid" data-reveal>
-      <!-- 01: OFFICE OF ACADEMIC AFFAIRS -->
-      <div class="exp-card exp-card--featured cursor-target">
-        <div class="exp-card__header">
-          <div class="exp-card__meta-row">
-            <span class="exp-card__num">01</span>
-            <span class="exp-card__kicker">ORGANIZATIONAL ENGAGEMENT</span>
-          </div>
-          <h3 class="exp-org-title">OFFICE OF ACADEMIC AFFAIRS</h3>
-          <p class="exp-card__role">Chandigarh University</p>
-        </div>
+    <div class="exp-flip-container" data-reveal>
+      <div class="flip-card-wrapper" id="experienceFlipCard">
+        <div class="flip-card-inner">
 
-        <!-- PixelSwap Interactive Role Hover -->
-        <div class="exp-pixel-box" id="pixelSwapRole">
-          <div class="pixel-swap-viewport">
-            <div class="pixel-swap-layer pixel-swap-layer--first">
-              <span class="role-text-first">Central Team <span class="role-badge-tag">HOVER</span></span>
+          <!-- FRONT: OFFICE OF ACADEMIC AFFAIRS -->
+          <div class="flip-card-face flip-card-front cursor-target">
+            <div class="flip-card-header">
+              <div class="flip-card-meta">
+                <span class="flip-card-index">01 // ENGAGEMENT</span>
+                <span class="flip-card-type-tag">INSTITUTIONAL</span>
+              </div>
+              <h3 class="flip-card-org">OFFICE OF ACADEMIC AFFAIRS</h3>
+              <p class="flip-card-inst">Chandigarh University</p>
             </div>
-            <div class="pixel-swap-layer pixel-swap-layer--second">
-              <span class="role-text-second">Social Media Executive</span>
+
+            <!-- PixelSwap Role Hover Controller -->
+            <div class="flip-card-interactive-slot">
+              <div class="exp-pixel-box" id="pixelSwapRole">
+                <div class="pixel-swap-viewport">
+                  <div class="pixel-swap-layer pixel-swap-layer--first">
+                    <span class="role-text-first">Central Team <span class="role-badge-tag">HOVER</span></span>
+                  </div>
+                  <div class="pixel-swap-layer pixel-swap-layer--second">
+                    <span class="role-text-second">Social Media Executive</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card-body">
+              <ul class="flip-card-focus-list">
+                <li><span>Social media strategy & institutional digital engagement</span></li>
+                <li><span>Digital content production & creative visual curation</span></li>
+                <li><span>Official promotional event posters & identity systems</span></li>
+                <li><span>Institutional communication material & executive releases</span></li>
+                <li><span>Narrative continuity & visual branding architecture</span></li>
+              </ul>
+            </div>
+
+            <div class="flip-card-footer">
+              <div class="flip-action-hint">
+                <span class="flip-action-icon">↻</span>
+                <span>CLICK TO FLIP // INDUSTRIAL TRAINING</span>
+              </div>
+              <span class="flip-card-tag-pill">FRONT</span>
             </div>
           </div>
-        </div>
 
-        <div class="exp-card__body">
-          <ul class="exp-card__focus">
-            <li><span>Social media strategy & institutional digital engagement</span></li>
-            <li><span>Digital content production & creative curation</span></li>
-            <li><span>Official promotional event posters & identity systems</span></li>
-            <li><span>Institutional communication material & executive releases</span></li>
-            <li><span>Campus event promotion & multi-format creative media</span></li>
-            <li><span>Narrative continuity & visual branding architecture</span></li>
-          </ul>
-        </div>
-      </div>
+          <!-- BACK: INDUSTRIAL TRAINING (VIPROTECH DIGITAL - CYBER SECURITY) -->
+          <div class="flip-card-face flip-card-back cursor-target">
+            <div class="flip-card-header">
+              <div class="flip-card-meta">
+                <span class="flip-card-index">02 // TRAINING</span>
+                <span class="flip-card-type-tag">TECHNICAL</span>
+              </div>
+              <h3 class="flip-card-org">INDUSTRIAL TRAINING</h3>
+              <p class="flip-card-inst">VIPROTECH DIGITAL</p>
+            </div>
 
-      <!-- 02: VIPROTECH DIGITAL -->
-      <div class="exp-card exp-card--featured cursor-target">
-        <div class="exp-card__header">
-          <div class="exp-card__meta-row">
-            <span class="exp-card__num">02</span>
-            <span class="exp-card__kicker">INDUSTRIAL TRAINING</span>
+            <!-- DecryptedText Dynamic Looping Specialization -->
+            <div class="flip-card-interactive-slot">
+              <div class="exp-decrypted-box">
+                <span class="decrypted-label">TECHNICAL SPECIALIZATION // DOMAIN:</span>
+                <div class="decrypted-target" id="cyberSecurityDecrypted">CYBER SECURITY</div>
+              </div>
+            </div>
+
+            <div class="flip-card-body">
+              <ul class="flip-card-focus-list">
+                <li><span>Industrial cybersecurity methodologies & network security inspection</span></li>
+                <li><span>Vulnerability assessments & defensive security posture</span></li>
+                <li><span>System hardening, threat analysis & architectural integrity</span></li>
+                <li><span>Enterprise risk mitigation & secure development guidelines</span></li>
+              </ul>
+            </div>
+
+            <div class="flip-card-footer">
+              <div class="flip-action-hint">
+                <span class="flip-action-icon">↻</span>
+                <span>CLICK TO FLIP // ACADEMIC AFFAIRS</span>
+              </div>
+              <span class="flip-card-tag-pill">BACK</span>
+            </div>
           </div>
-          <h3 class="exp-org-title">VIPROTECH DIGITAL</h3>
-          <p class="exp-card__role">Industrial Training</p>
-        </div>
 
-        <!-- DecryptedText Dynamic Reveal -->
-        <div class="exp-decrypted-box">
-          <span class="decrypted-label">SPECIALIZATION / DOMAIN:</span>
-          <div class="decrypted-target" data-decrypted-text="CYBER SECURITY">CYBER SECURITY</div>
-        </div>
-
-        <div class="exp-card__body">
-          <ul class="exp-card__focus">
-            <li><span>Industrial cybersecurity methodologies & network security inspection</span></li>
-            <li><span>Vulnerability assessments & secure development posture</span></li>
-            <li><span>System hardening, threat analysis & architectural integrity</span></li>
-          </ul>
         </div>
       </div>
     </div>
