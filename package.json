@@ -4,8 +4,8 @@
   "private": true,
   "description": "Cinematic Canvas Frame-Based Personal Portfolio of Shashwat Vatsyayan",
   "scripts": {
-    "start": "node server.js",
     "dev": "node server.js",
+    "serve": "node server.js",
     "extract-frames": "python 05_ORCHESTRATION/extract_frames.py"
   },
   "keywords": [

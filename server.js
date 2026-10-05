@@ -33,7 +33,10 @@ const server = http.createServer((req, res) => {
   }
 
   const safePath = path.normalize(decodeURIComponent(cleanUrl)).replace(/^(\.\.[\/\\])+/, '');
-  const filePath = path.join(__dirname, safePath);
+  let filePath = path.join(__dirname, safePath);
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(process.cwd(), safePath);
+  }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
