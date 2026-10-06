@@ -157,14 +157,21 @@ export class CircularCarousel {
       this.mouseOffset.y = ny;
     }, { passive: true });
 
-    // Click to Focus
+    // Click to Focus / Open Active Project
     if (this.focusOnClick) {
       this.stageEl.addEventListener('click', e => {
         const card = e.target.closest('.cylinder-card');
         if (!card) return;
         const index = parseInt(card.dataset.index, 10);
-        if (!isNaN(index) && index !== this.activeIndex) {
-          this.goToIndex(index);
+        if (!isNaN(index)) {
+          if (index !== this.activeIndex) {
+            this.goToIndex(index);
+          } else {
+            const item = this.items[index];
+            if (item && item.url && item.url !== '#') {
+              window.open(item.url, '_blank', 'noopener,noreferrer');
+            }
+          }
         }
       });
     }

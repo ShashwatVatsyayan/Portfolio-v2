@@ -74,14 +74,22 @@ export class ProjectDetails {
     // Links (default to editable '#' placeholders)
     if (this.viewBtn) {
       this.viewBtn.href = project.url || '#';
-      if (project.url === '#') {
+      if (project.url && project.url !== '#') {
+        this.viewBtn.removeAttribute('title');
+        this.viewBtn.setAttribute('target', '_blank');
+        this.viewBtn.setAttribute('rel', 'noopener noreferrer');
+      } else {
         this.viewBtn.setAttribute('title', 'Project link placeholder (ready for live URL)');
       }
     }
 
     if (this.githubBtn) {
       this.githubBtn.href = project.github || '#';
-      if (project.github === '#') {
+      if (project.github && project.github !== '#') {
+        this.githubBtn.removeAttribute('title');
+        this.githubBtn.setAttribute('target', '_blank');
+        this.githubBtn.setAttribute('rel', 'noopener noreferrer');
+      } else {
         this.githubBtn.setAttribute('title', 'GitHub link placeholder (ready for repository URL)');
       }
     }

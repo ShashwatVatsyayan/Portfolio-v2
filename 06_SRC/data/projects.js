@@ -24,7 +24,7 @@ export const projects = [
     metrics: "Precision Crop Yield Telemetry · Soil Sensor Synthesis · Automated Resource Routing",
     accentColor: "#22c55e",
     accentRgb: "34, 197, 94",
-    url: "#",
+    url: "https://fboost-agro.vercel.app/",
     github: "#",
     visualType: "agro"
   },
@@ -56,7 +56,7 @@ export const projects = [
     metrics: "Automated Binary Dissection · Neural Threat Heuristics · Dynamic Sandboxed Telemetry",
     accentColor: "#a855f7",
     accentRgb: "168, 85, 247",
-    url: "#",
+    url: "https://sansec-ai.vercel.app/",
     github: "#",
     visualType: "cyber"
   },
